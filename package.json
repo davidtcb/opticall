@@ -1,8 +1,9 @@
 {
-    "name": "viscall",
+    "name": "inyourface",
     "version": "1.0.0",
     "description": "This is an app that allows the control of the Luxafor device over REST",
     "main": "app.js",
+    "bin": "app.js",
     "author": "davojc",
     "license": "MIT",
     "dependencies": {
@@ -13,5 +14,9 @@
         "express": "^4.17.1",
         "luxafor-api": "^3.0.0",
         "yargs": "^17.0.1"
+    },
+    "pkg": {
+        "assets": "config/**/*",
+        "outputPath": "bin"
     }
 }

@@ -41,7 +41,6 @@ if(!luxafor) {
     console.log(chalk.bgRed("Cannot find Luxafor device ... you can test stuff but don't expect anything to happen!"))
 }
 
-
 var processMessage = function(src, msg) {
 
     if (msg.target == solo) {
@@ -49,6 +48,8 @@ var processMessage = function(src, msg) {
 
     } else if (msg.target == channel) {
         var color = msg.channel
+    } else {
+        return true
     }
 
     switch(msg.command) {
