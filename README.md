@@ -98,5 +98,7 @@ The target is either the group name or a specific participant.
 
 ### Colors
 
+These colours should be any HTML Hex value (https://www.w3schools.com/colors/colors_picker.asp)
+
 * **group** - The colour to use for a group notification
 * **solo** - The colour to use for a solo notification
