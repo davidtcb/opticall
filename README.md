@@ -14,31 +14,36 @@ These are enabled/disabled via configuration.
 
 ## Configuration
 
-The config file should live in a file in the location config\default.json
+The config file should live in a file in the location 'config\default.json'
 
 
 ### File Format
 
 ```javascript
 {
-    "Intercom": {
+    "Notify": {
+        ...
     },
     "UDP": {
+        ...
     },
     "TCP": {
+        ...
     }
 }
 ```
 
-### Intercom configuration
+### Notify configuration
 ```javascript
 {
-    "Intercom": {
-        "channel": "Audio", // Group membership name
-        "solo": "Phil" // Individual name
+    "Notify": {
+        "group": "Group Name", // Group membership name
+        "solo": "Specific Solo Name" // Individual name
     }
 }
 ```
+
+This is where the parameters of 
 
 ### UDP Configuration
 ```javascript
@@ -61,5 +66,37 @@ The config file should live in a file in the location config\default.json
 }
 ```
 
+## Invoking the server
 
+### TCP Endpoint
 
+http://ip:port/message
+
+### Command object
+
+Both the REST and UDP endpoints receive the same message format (in the body for the REST call).
+
+```javascript
+{ 
+    "command": "flash", 
+    "target": "Audio", 
+    "group": "#FFF933", 
+    "solo": "#FF5733" }
+
+```
+
+### Commands
+
+There are 3 commands:
+* **flash** - Flash the light, it will flash up to 255 times
+* **on** - Turns the light on
+* **off** - Turn the light off/stop flashing
+
+### Target
+
+The target is either the group name or a specific participant.
+
+### Colors
+
+* **group** - The colour to use for a group notification
+* **solo** - The colour to use for a solo notification

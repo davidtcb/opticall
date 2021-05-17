@@ -1,6 +1,6 @@
 {
-    "Intercom": {
-        "channel": "Audio",
+    "Notify": {
+        "group": "Audio",
         "solo": "Phil"
     },
     "UDP": {

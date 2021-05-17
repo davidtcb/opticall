@@ -38,8 +38,8 @@ if(!tcpPort) {
     tcpPort = safeGetConfig('TCP.port')
 }
 
-var channel = safeGetConfig('Intercom.channel')
-var solo = config.get('Intercom.solo')
+var group = safeGetConfig('Notify.group')
+var solo = safeGetConfig('Notify.solo')
 
 var tcpEnabled = safeGetConfig('TCP.enabled')
 var udpEnabled = safeGetConfig('UDP.enabled')
@@ -54,8 +54,8 @@ var processMessage = function(src, msg) {
 
     if (msg.target == solo) {
         var color = msg.solo;
-    } else if (msg.target == channel) {
-        var color = msg.channel;
+    } else if (msg.target == group) {
+        var color = msg.group;
     } else {
         return true;
     }
@@ -103,7 +103,7 @@ var processMessage = function(src, msg) {
                 return false;
             } 
 
-        case 'stop':
+        case 'off':
             console.log(boxen(src));
 
             if(luxafor) {
