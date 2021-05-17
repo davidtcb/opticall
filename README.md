@@ -81,7 +81,8 @@ Both the REST and UDP endpoints receive the same message format (in the body for
     "command": "flash", 
     "target": "Audio", 
     "group": "#FFF933", 
-    "solo": "#FF5733" }
+    "solo": "#FF5733" 
+}
 
 ```
 
