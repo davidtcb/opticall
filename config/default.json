@@ -1,0 +1,15 @@
+{
+    "Intercom": {
+        "channel": "Audio",
+        "solo": "Phil"
+    },
+    "UDP": {
+        "enabled": true,
+        "port": 7000,
+        "bindingAddress": "192.168.1.241"
+    },
+    "TCP": {
+        "enabled": true,
+        "port": 3000
+    }
+}
