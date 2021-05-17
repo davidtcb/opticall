@@ -1,7 +1,7 @@
 {
-    "name": "inyourface",
+    "name": "opticall",
     "version": "1.0.0",
-    "description": "This is an app that allows the control of the Luxafor device over REST",
+    "description": "This is an app that allows the control of the Luxafor device over REST and UDP",
     "main": "app.js",
     "bin": "app.js",
     "author": "davojc",
