@@ -1,7 +1,17 @@
 {
     "Notify": {
         "group": "Audio",
-        "solo": "Phil"
+        "groupColour": "#ffff00",
+        "solo": "Phil",
+        "soloColour": "#ff0000"
+    },
+    "Flash": {
+        "repeat": 255,
+        "speed": 10
+    },
+    "Wave": {
+        "repeat": 255,
+        "speed": 5
     },
     "UDP": {
         "enabled": true,

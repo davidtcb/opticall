@@ -1,4 +1,4 @@
-const { device, devices } = require('luxafor-api')
+const { device, constants } = require('luxafor-api')
 const yargs = require('yargs');
 const config = require('config')
 const chalk = require('chalk');
@@ -25,6 +25,13 @@ var safeGetConfig = function(configEntry) {
         console.log(chalk.yellow("Cannot read config entry: " + configEntry))
     }
 }
+
+
+
+var flashSpeed = safeGetConfig("Flash.speed");
+var flashRepeat = safeGetConfig("Flash.repeat");
+var waveSpeed = safeGetConfig("Wave.speed");
+var waveRepeat = safeGetConfig("Wave.repeat");
 
 if(!udpPort) {
     udpPort = safeGetConfig('UDP.port')
@@ -53,31 +60,67 @@ if(!luxafor) {
 var processMessage = function(src, msg) {
 
     if (msg.target == solo) {
-        var color = msg.solo;
+        var color = msg.solo ?? safeGetConfig('Notify.soloColour');
     } else if (msg.target == group) {
-        var color = msg.group;
+        var color = msg.group ?? safeGetConfig('Notify.groupColour');;
     } else {
         return true;
     }
 
-    switch(msg.command) {
+    var fs = flashSpeed
+    var fr = flashRepeat
+    var ws = waveSpeed
+    var wr = waveRepeat
+
+    if(msg.speed) {
+        fs = msg.speed
+        ws = msg.speed
+    }
+
+    if(msg.repeat) {
+        fr = msg.repeat
+        wr = msg.repeat
+    }
+
+    switch(msg.cmd) {
         case 'flash':
             
             if(!color) {
                 return true;
             }
 
-            console.log(boxen(chalk.hex(color).inverse(src), {borderColor: color, borderStyle: 'classic'}));
+            console.log(boxen(chalk.hex(color).inverse(src), {borderColor: color, borderStyle: 'classic', padding:1, margin:1}));
 
             try {
                 if(luxafor) {
-                    luxafor.flash(color, 10, 255);
+                    luxafor.flash(color, fs, fr, 0xFF);
                 }
         
                 return true;
             } catch(e) {
                 
                 console.log(chalk.red(src + " - Cannot run FLASH command"));
+                console.log(chalk.grey(e));
+                return false;
+            } 
+
+        case 'wave':
+
+            if(!color) {
+                return true;
+            }
+
+            console.log(boxen(chalk.hex(color).inverse(src), {borderColor: color, borderStyle: 'doubleSingle', padding:1, margin:1}));
+
+            try {
+                if(luxafor) {
+                    luxafor.wave(color, constants.WAVE_SHORT_OVERLAPPING, ws, wr);
+                }
+        
+                return true;
+            } catch(e) {
+                
+                console.log(chalk.red(src + " - Cannot run WAVE command"));
                 console.log(chalk.grey(e));
                 return false;
             } 
@@ -92,7 +135,7 @@ var processMessage = function(src, msg) {
 
             try {
                 if(luxafor) {
-                    luxafor.color(color);
+                    luxafor.color(color, 0xFF);
                 }
         
                 return true;
