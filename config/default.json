@@ -1,8 +1,8 @@
 {
     "Notify": {
-        "group": "Audio",
+        "group": "Group",
         "groupColour": "#ffff00",
-        "solo": "Phil",
+        "solo": "Solo",
         "soloColour": "#ff0000"
     },
     "Flash": {
@@ -16,7 +16,7 @@
     "UDP": {
         "enabled": true,
         "port": 7000,
-        "bindingAddress": "192.168.1.241"
+        "bindingAddress": "0.0.0.0"
     },
     "TCP": {
         "enabled": false,
