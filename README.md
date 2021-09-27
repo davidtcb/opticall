@@ -83,7 +83,6 @@ Both the REST and UDP endpoints receive the same message format (in the body for
     "group": "#FFF933", 
     "solo": "#FF5733" 
 }
-
 ```
 
 ### Commands

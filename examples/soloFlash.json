@@ -1,0 +1,5 @@
+{
+    "cmd": "flash",
+    "color": "blue",
+    "target" : "Solo"
+}

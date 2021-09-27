@@ -1,10 +1,28 @@
 {
-    "Notify": {
-        "group": "Group",
-        "groupColour": "#ffff00",
-        "solo": "Solo",
-        "soloColour": "#ff0000"
-    },
+    "Targets": [
+            {
+                "id": "\\\\?\\hid#vid_04d8&pid_f372#8&9cc871b&1&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
+                "name": "Solo1",
+                "colour": "#ff0000",
+                "group": "Group1",
+                "groupColour": "#ffff00"
+            },
+            {
+                "id": "\\\\?\\hid#vid_04d8&pid_f372#8&1c8637c0&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
+                "name": "Solo2",
+                "colour": "#ff0000",
+                "group": "Group1",
+                "groupColour": "#ffff00"
+            },
+            {
+                "id": "\\\\?\\hid#vid_04d8&pid_f372#9&4ffcde7&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
+                "name": "Solo3",
+                "colour": "#ff0000",
+                "group": "Group1",
+                "groupColour": "#ffff00"
+            }
+            
+    ],    
     "Flash": {
         "repeat": 255,
         "speed": 10
@@ -19,7 +37,7 @@
         "bindingAddress": "0.0.0.0"
     },
     "TCP": {
-        "enabled": false,
+        "enabled": true,
         "port": 3000
     }
 }
