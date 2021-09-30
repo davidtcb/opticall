@@ -77,3 +77,6 @@ typings/
 
 # pkg binaries
 bin
+
+#output binaries
+app-*
