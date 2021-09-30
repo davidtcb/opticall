@@ -3,41 +3,63 @@
             {
                 "id": "\\\\?\\hid#vid_04d8&pid_f372#8&9cc871b&1&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
                 "name": "Solo1",
-                "colour": "#ff0000",
+                "colour": "yellow",
                 "group": "Group1",
-                "groupColour": "#ffff00"
+                "groupColour": "green"
             },
             {
-                "id": "\\\\?\\hid#vid_04d8&pid_f372#8&1c8637c0&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
+                "id": "\\\\?\\hid#vid_04d8&pid_f372#9&1002c215&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
                 "name": "Solo2",
-                "colour": "#ff0000",
+                "colour": "orange",
                 "group": "Group1",
-                "groupColour": "#ffff00"
+                "groupColour": "green"
             },
             {
                 "id": "\\\\?\\hid#vid_04d8&pid_f372#9&4ffcde7&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
                 "name": "Solo3",
-                "colour": "#ff0000",
+                "colour": "purple",
                 "group": "Group1",
-                "groupColour": "#ffff00"
+                "groupColour": "green"
             }
-            
-    ],    
-    "Flash": {
-        "repeat": 255,
-        "speed": 10
+    ],
+    "Handlers": [
+        {
+            "cmd": "on"
+        },
+        {
+            "cmd": "off",
+            "consoleColour": "grey"
+        },
+        {
+            "cmd": "flash",
+            "speed": 10,
+            "repeat": 255
+        },
+        {
+            "cmd": "wave",
+            "speed": 5,
+            "repeat": 255
+        }
+    ],
+    "Network": {
+        "UDP": {
+            "enabled": true,
+            "port": 7000,
+            "bindingAddress": "0.0.0.0"
+        },
+        "TCP": {
+            "enabled": true,
+            "port": 3000
+        }   
     },
-    "Wave": {
-        "repeat": 255,
-        "speed": 5
-    },
-    "UDP": {
-        "enabled": true,
-        "port": 7000,
-        "bindingAddress": "0.0.0.0"
-    },
-    "TCP": {
-        "enabled": true,
-        "port": 3000
+    "Light": {
+        "Flash": {
+            "repeat": 255,
+            "speed": 10
+        },
+        "Wave": {
+            "repeat": 255,
+            "speed": 5
+        }
     }
 }

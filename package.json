@@ -8,12 +8,13 @@
     "license": "MIT",
     "dependencies": {
         "body-parser": "^1.19.0",
-        "boxen": "^5.0.1",
-        "chalk": "^4.1.1",
+        "boxen": "^5.1.2",
+        "chalk": "^4.1.2",
         "config": "^3.3.6",
         "express": "^4.17.1",
         "luxafor-api": "^3.0.0",
-        "yargs": "^17.0.1"
+        "rgb2hex": "^0.2.5",
+        "yargs": "^17.2.1"
     },
     "pkg": {
         "assets": "config/**/*",
