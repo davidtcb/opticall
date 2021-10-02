@@ -2,18 +2,25 @@ const HID = require('node-hid');
 const Device = require('./Device.js')
 const chalk = require('chalk');
 
-class DeviceLocator {
-    constructor(serverConfig) {
+class DeviceRepository {
+    constructor() {
+    }
 
+    locate(targetLocator) {
+        
         this.devices = [];
-        const luxafors = HID.devices();
+        this.paths = []
+        var luxafors = HID.devices();
         
         luxafors.forEach(l => {
         
             if(l.product == 'LUXAFOR FLAG') {
                 console.log(l.path)
                 var hid = new HID.HID(l.path)
-                var targetConfig = serverConfig.targetMap.get(l.path)
+
+                this.paths.push(l.path)
+                
+                var targetConfig = targetLocator.targetMap.get(l.path)
         
                 if (!targetConfig) {
                     console.log(chalk.redBright("Cannot find device with config path: " + l.path))
@@ -26,4 +33,4 @@ class DeviceLocator {
     }
 }
 
-module.exports = DeviceLocator
+module.exports = DeviceRepository

@@ -1,27 +1,5 @@
 {
-    "Targets": [
-            {
-                "id": "\\\\?\\hid#vid_04d8&pid_f372#8&9cc871b&1&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
-                "name": "Solo1",
-                "colour": "yellow",
-                "group": "Group1",
-                "groupColour": "green"
-            },
-            {
-                "id": "\\\\?\\hid#vid_04d8&pid_f372#9&1002c215&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
-                "name": "Solo2",
-                "colour": "orange",
-                "group": "Group1",
-                "groupColour": "green"
-            },
-            {
-                "id": "\\\\?\\hid#vid_04d8&pid_f372#9&4ffcde7&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}",
-                "name": "Solo3",
-                "colour": "purple",
-                "group": "Group1",
-                "groupColour": "green"
-            }
-    ],
+    "Targets": "./config/targets",
     "Handlers": [
         {
             "cmd": "on"
@@ -51,15 +29,5 @@
             "enabled": true,
             "port": 3000
         }   
-    },
-    "Light": {
-        "Flash": {
-            "repeat": 255,
-            "speed": 10
-        },
-        "Wave": {
-            "repeat": 255,
-            "speed": 5
-        }
     }
 }

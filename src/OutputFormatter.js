@@ -23,8 +23,6 @@ class OutputFormatter {
         
         var borderColor = rgb2hex('rgb(' + resolvedColor.red + ',' + resolvedColor.green + ',' + resolvedColor.blue + ')');
 
-        console.log(borderColor.hex)
-
         var coloredText = chalk.rgb(resolvedColor.red, resolvedColor.green, resolvedColor.blue).inverse(outputText)
         var options = {title: msg.cmd, borderColor: borderColor.hex, padding:1, margin:1, float: 'center'}
         console.log(boxen(coloredText, options));

@@ -3,11 +3,12 @@ const yargs = require('yargs');
 const chalk = require('chalk');
 const { option, config } = require('yargs');
 const { Console } = require('console');
-const DeviceLocator = require('./src/DeviceLocator.js')
+const DeviceRepository = require('./src/DeviceRepository.js')
 const ServerConfig = require('./src/ServerConfig.js')
 const TcpListener = require('./src/TcpListener.js');
 const UdpListener = require('./src/UdpListener.js');
 const OutputFormatter = require('./src/OutputFormatter.js');
+const TargetRepository = require('./src/TargetRepository.js');
 
 const args = yargs
     .usage("Usage: -u <udp> -t <tcp>")
@@ -21,18 +22,35 @@ var { udpPort, tcpPort, bindingIP, debug } = args
 
 const serverConfig = new ServerConfig(udpPort, bindingIP, tcpPort)
 
-var deviceLocator = new DeviceLocator(serverConfig)
+var targetRepository = new TargetRepository(serverConfig.targets)
+targetRepository.reload()
+var deviceRepository = new DeviceRepository()
+
+deviceRepository.locate(targetRepository)
+
 var outputFormatter = new OutputFormatter()
 
-var processMessage = function(src, msg) {
+var processMessage = function(src, msg, callback) {
     
+    if(msg.cmd === 'ping') {
+        console.log("pinged")
+        callback("{\"cmd\": \"echo\", \"host\":\"thisHost\"}")
+        return;
+
+    } else if (msg.cmd === 'echo') {
+        console.log(msg.host)
+        return;
+    }
+
+
     var handler = serverConfig.handlers.get(msg.cmd)
 
     if(!handler) {
+
         return false;
     }
 
-    deviceLocator.devices.forEach(device => {
+    deviceRepository.devices.forEach(device => {
     
         if(device.config.name === msg.target) {
             var color = msg.colour ?? device.config.colour;
@@ -49,6 +67,7 @@ var processMessage = function(src, msg) {
 
         try {
             switch(msg.cmd) {
+                                
                 case 'flash':
                     device.flash(resolvedColor, speed, repeat);
                     break;
@@ -77,7 +96,7 @@ var processMessage = function(src, msg) {
     return true;
 }
 
-var tcpServer = new TcpListener(serverConfig.tcpPort, serverConfig.tcpEnabled);
+var tcpServer = new TcpListener(serverConfig.tcpPort, serverConfig.tcpEnabled, targetRepository, deviceRepository);
 var udpServer = new UdpListener(serverConfig.udpPort, serverConfig.udpEnabled, serverConfig.bindingIP);
 
 tcpServer.start(processMessage)

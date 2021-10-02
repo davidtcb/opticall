@@ -10,20 +10,21 @@ class UdpListener {
     start(processMessage) {
         if (this.udpPort && this.udpEnabled) {
 
-            this.client = udp.createSocket('udp4');
-        
-            this.client.bind({
+            var client = udp.createSocket('udp4');
+            var udpPort = this.udpPort
+            var bindingIP = this.bindingIP
+
+            client.bind({
                 address: this.bindingIP,
                 port: this.udpPort,
                 exclusive: true
             });
         
-            this.client.on('listening', function() {
+            client.on('listening', function() {
                 console.log("UDP listening") // on " + address.address + ":" + address.port);
             })
             
-        
-            this.client.on('message', function (message, remote) {
+            client.on('message', function (message, remote) {
         
                 try {
                     var msg = JSON.parse(message);
@@ -31,8 +32,20 @@ class UdpListener {
                     return console.error(e);
                 }
                 
-                processMessage("UDP", msg)
+                processMessage("UDP", msg, (data) => {
+                    
+                    var buff = Buffer.from(data)
+                    
+                    client.send(buff, udpPort, bindingIP, (err) => {
+                        
+                        if(err) {
+                            console.log("ERROR: " + err)
+                        }
+                    })
+                })
             });
+
+            this.client = client
         }
     }
 }
