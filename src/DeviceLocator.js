@@ -1,5 +1,6 @@
 const HID = require('node-hid');
 const Device = require('./Device.js')
+const chalk = require('chalk');
 
 class DeviceLocator {
     constructor(serverConfig) {

@@ -102,3 +102,13 @@ These colours should be any HTML Hex value (https://www.w3schools.com/colors/col
 
 * **group** - The colour to use for a group notification
 * **solo** - The colour to use for a solo notification
+
+
+## Compling for other systems
+
+
+### Raspberry Pi
+
+Make sure prerequesites are installed:
+
+sudo apt install libusb-1.0-0 libusb-1.0-0-dev libudev-dev
