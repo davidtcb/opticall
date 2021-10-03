@@ -38,6 +38,8 @@ for(var key in networkInterfaces) {
 
     var networkInterface = networkInterfaces[key]
 
+    console.log(networkInterface)
+
     if(networkInterface[1].address.startsWith(serverConfig.bindingIP)) {
         var localIp = networkInterface[1].address
     }
