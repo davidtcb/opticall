@@ -35,7 +35,7 @@ class ServerConfig {
 
             networkInterface.forEach(ni => {
                 if(ni.address.startsWith(this.bindingIP)) {
-                    this.localIp = networkInterface[1].address
+                    this.localIp = ni.address
                 }
             })
         }
