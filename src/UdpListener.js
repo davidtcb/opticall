@@ -35,7 +35,7 @@ class UdpListener {
                 
                 processMessage("UDP", msg, (data) => {
                     
-                    var buff = Buffer.from(data)
+                    var buff = Buffer.from(JSON.stringify(data))
                     
                     client.send(buff, 0, buff.length, udpPort, bindingIP, (err) => {
                         

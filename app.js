@@ -44,16 +44,13 @@ for(var key in networkInterfaces) {
 }
 
 var processMessage = function(src, msg, callback) {
-    
-    console.log(msg.cmd)
-    
+       
     if(msg.cmd === 'ping') {
-        console.log("pinged")
-        callback("{\"cmd\": \"echo\", \"host\":\"" + localIp + "\"}")
+        callback({ "cmd": "echo", "host": "http://" + localIp + ":" + serverConfig.tcpPort + "/"})
         return;
 
     } else if (msg.cmd === 'echo') {
-        console.log(msg)
+        console.log(msg.host)
         return;
     }
 
