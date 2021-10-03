@@ -30,11 +30,13 @@ class ServerConfig {
         for(var key in networkInterfaces) {
         
             var networkInterface = networkInterfaces[key]
+
+            console.log(networkInterface[1].address)
                
             if(networkInterface[1].address.startsWith(this.bindingIP)) {
 
                 this.localIp = networkInterface[1].address
-                console.log(this.localIp)
+                console.log("Setting LocalIP: " + this.localIp)
             }
         }
     }
