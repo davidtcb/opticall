@@ -15,7 +15,7 @@ class UdpListener {
             var bindingIP = this.bindingIP
 
             client.bind({
-                address: this.bindingIP,
+                address: "0.0.0.0",
                 port: this.udpPort,
                 exclusive: true
             });
