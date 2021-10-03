@@ -37,7 +37,7 @@ class UdpListener {
                     
                     var buff = Buffer.from(JSON.stringify(data))
                     
-                    client.send(buff, 0, buff.length, udpPort, bindingIP, (err) => {
+                    client.send(buff, 0, buff.length, udpPort, "0.0.0.0", (err) => {
                         
                         if(err) {
                             console.log("ERROR: " + err)
