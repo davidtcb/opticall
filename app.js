@@ -32,13 +32,15 @@ var outputFormatter = new OutputFormatter()
 
 var processMessage = function(src, msg, callback) {
     
+    console.log(msg.cmd)
+    
     if(msg.cmd === 'ping') {
         console.log("pinged")
         callback("{\"cmd\": \"echo\", \"host\":\"thisHost\"}")
         return;
 
     } else if (msg.cmd === 'echo') {
-        console.log(msg.host)
+        console.log(msg)
         return;
     }
 

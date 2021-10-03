@@ -1,4 +1,5 @@
 const udp = require('dgram');
+var buffer = require('buffer');
 
 class UdpListener {
     constructor(udpPort, udpEnabled, bindingIP = '0.0.0.0') {
@@ -17,7 +18,7 @@ class UdpListener {
             client.bind({
                 address: "0.0.0.0",
                 port: this.udpPort,
-                exclusive: true
+                exclusive: false
             });
         
             client.on('listening', function() {
@@ -36,7 +37,7 @@ class UdpListener {
                     
                     var buff = Buffer.from(data)
                     
-                    client.send(buff, udpPort, bindingIP, (err) => {
+                    client.send(buff, 0, buff.length, udpPort, bindingIP, (err) => {
                         
                         if(err) {
                             console.log("ERROR: " + err)
