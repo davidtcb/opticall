@@ -32,23 +32,10 @@ deviceRepository.locate(targetRepository)
 
 var outputFormatter = new OutputFormatter()
 
-var networkInterfaces = os.networkInterfaces();
-
-for(var key in networkInterfaces) {
-
-    var networkInterface = networkInterfaces[key]
-
-    console.log(networkInterface)
-
-    if(networkInterface[1].address.startsWith(serverConfig.bindingIP)) {
-        var localIp = networkInterface[1].address
-    }
-}
-
 var processMessage = function(src, msg, callback) {
        
     if(msg.cmd === 'ping') {
-        callback({ "cmd": "echo", "host": "http://" + localIp + ":" + serverConfig.tcpPort + "/"})
+        callback({ "cmd": "echo", "host": "http://" + serverConfig.localIp + ":" + serverConfig.tcpPort + "/"})
         return;
 
     } else if (msg.cmd === 'echo') {

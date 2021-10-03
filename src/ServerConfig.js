@@ -1,5 +1,6 @@
 const config = require('config')
 const chalk = require('chalk');
+const os = require( 'os' );
 
 class ServerConfig {
     constructor(udpPort, bindingIP, tcpPort) {
@@ -23,6 +24,19 @@ class ServerConfig {
         handlerList.forEach(h => {
             this.handlers.set(h.cmd, h)
         })
+
+        var networkInterfaces = os.networkInterfaces();
+
+        for(var key in networkInterfaces) {
+        
+            var networkInterface = networkInterfaces[key]
+               
+            if(networkInterface[1].address.startsWith(this.bindingIP)) {
+
+                this.localIp = networkInterface[1].address
+                console.log(this.localIp)
+            }
+        }
     }
 
     _safeGetConfig = (configEntry) => {
