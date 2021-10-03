@@ -6,7 +6,7 @@ class DeviceRepository {
     constructor() {
     }
 
-    locate(targetLocator) {
+    locate(targetRepository) {
         
         this.devices = [];
         this.paths = []
@@ -20,13 +20,13 @@ class DeviceRepository {
 
                 this.paths.push(l.path)
                 
-                var targetConfig = targetLocator.targetMap.get(l.path)
+                var targetConfig = targetRepository.targetMap.get(l.path)
         
                 if (!targetConfig) {
                     console.log(chalk.redBright("Cannot find device with config path: " + l.path))
                 }
         
-                var device = new Device(hid, targetConfig)
+                var device = new Device(hid, targetConfig, l.path)
                 this.devices.push(device)
             }
         })

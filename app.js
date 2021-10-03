@@ -9,8 +9,6 @@ const TcpListener = require('./src/TcpListener.js');
 const UdpListener = require('./src/UdpListener.js');
 const OutputFormatter = require('./src/OutputFormatter.js');
 const TargetRepository = require('./src/TargetRepository.js');
-var os = require( 'os' );
-
 
 const args = yargs
     .usage("Usage: -u <udp> -t <tcp>")
@@ -52,6 +50,11 @@ var processMessage = function(src, msg, callback) {
 
     deviceRepository.devices.forEach(device => {
     
+        if(!device.config) {
+            console.log("No config exists for " + device.path)
+            return;
+        }
+
         if(device.config.name === msg.target) {
             var color = msg.colour ?? device.config.colour;
         } else if (device.config.group === msg.target) {

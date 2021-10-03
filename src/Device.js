@@ -1,8 +1,9 @@
 const os = require("os");
 
 class Device {
-  constructor(hidDevice, config) {
+  constructor(hidDevice, config, path) {
     this.config = config;
+    this.path = path;
     this._hidDevice = hidDevice;
     this._hidDevice.pause();
   }

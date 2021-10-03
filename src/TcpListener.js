@@ -1,4 +1,5 @@
 const express = require('express');
+const { device } = require('luxafor-api');
 
 class TcpListener {
     constructor(tcpPort, tcpEnabled, targetRepository, deviceRepository) {
@@ -28,6 +29,11 @@ class TcpListener {
                 res.json(this.deviceRepository.paths)
             })
 
+            this.app.post("/devices", (req, res) => {
+                this.deviceRepository.locate(this.targetRepository)
+                return res.sendStatus(200);
+            })
+
             this.app.get("/targets", (req, res) => {
                 res.json(this.targetRepository.targets)
             })
@@ -51,6 +57,7 @@ class TcpListener {
 
             this.app.post("/targets", (req, res) => {
                 this.targetRepository.add(req.body)
+                this.deviceRepository.locate(this.targetRepository)
                 return res.sendStatus(200);
             })
 
