@@ -23,7 +23,7 @@
         "UDP": {
             "enabled": true,
             "port": 7000,
-            "bindingAddress": "192.168.1.255"
+            "bindingAddress": "192.168.1."
         },
         "TCP": {
             "enabled": true,

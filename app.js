@@ -9,6 +9,8 @@ const TcpListener = require('./src/TcpListener.js');
 const UdpListener = require('./src/UdpListener.js');
 const OutputFormatter = require('./src/OutputFormatter.js');
 const TargetRepository = require('./src/TargetRepository.js');
+var os = require( 'os' );
+
 
 const args = yargs
     .usage("Usage: -u <udp> -t <tcp>")
@@ -30,20 +32,30 @@ deviceRepository.locate(targetRepository)
 
 var outputFormatter = new OutputFormatter()
 
+var networkInterfaces = os.networkInterfaces();
+
+for(var key in networkInterfaces) {
+
+    var networkInterface = networkInterfaces[key]
+
+    if(networkInterface[1].address.startsWith(serverConfig.bindingIP)) {
+        var localIp = networkInterface[1].address
+    }
+}
+
 var processMessage = function(src, msg, callback) {
     
     console.log(msg.cmd)
     
     if(msg.cmd === 'ping') {
         console.log("pinged")
-        callback("{\"cmd\": \"echo\", \"host\":\"thisHost\"}")
+        callback("{\"cmd\": \"echo\", \"host\":\"" + localIp + "\"}")
         return;
 
     } else if (msg.cmd === 'echo') {
         console.log(msg)
         return;
     }
-
 
     var handler = serverConfig.handlers.get(msg.cmd)
 

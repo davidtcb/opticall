@@ -13,7 +13,7 @@ class UdpListener {
 
             var client = udp.createSocket('udp4');
             var udpPort = this.udpPort
-            var bindingIP = this.bindingIP
+            var bindingIP = this.bindingIP + "255"
 
             client.bind({
                 address: "0.0.0.0",
