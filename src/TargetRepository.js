@@ -8,6 +8,10 @@ class TargetRepository {
 
     reload() {
 
+        if(!fs.existsSync(this.targetDir)) {
+            fs.mkdirSync(this.targetDir)
+        }
+       
         this.targetMap.clear()
         this.targets = []
 
