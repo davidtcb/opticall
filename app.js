@@ -9,6 +9,7 @@ const TcpListener = require('./src/TcpListener.js');
 const UdpListener = require('./src/UdpListener.js');
 const OutputFormatter = require('./src/OutputFormatter.js');
 const TargetRepository = require('./src/TargetRepository.js');
+var Discovery = require('udp-discovery').Discovery;
 
 const args = yargs
     .usage("Usage: -u <udp> -t <tcp>")
@@ -29,6 +30,25 @@ var deviceRepository = new DeviceRepository()
 deviceRepository.locate(targetRepository)
 
 var outputFormatter = new OutputFormatter()
+
+var discover = new Discovery();
+var service = {
+    port: serverConfig.tcpPort,
+    proto: 'tcp',
+    addrFamily: 'IPv4',
+    localIp: serverConfig.localIp
+}
+
+discover.on('MessageBus', (event, data) => {
+   // console.log('event:',event);
+  //  console.log('data:',data);
+});
+
+discover.on('available', function(name, data, reason) {
+    console.log(data);
+  });
+
+  discover.announce("Opticall", service)
 
 var processMessage = function(src, msg, callback) {
        
@@ -100,7 +120,7 @@ var processMessage = function(src, msg, callback) {
 }
 
 var tcpServer = new TcpListener(serverConfig.tcpPort, serverConfig.tcpEnabled, targetRepository, deviceRepository);
-var udpServer = new UdpListener(serverConfig.udpPort, serverConfig.udpEnabled, serverConfig.bindingIP);
+var udpServer = new UdpListener(serverConfig.udpPort, serverConfig.udpEnabled, serverConfig.localIp);
 
 tcpServer.start(processMessage)
 udpServer.start(processMessage)

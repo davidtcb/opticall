@@ -2,10 +2,10 @@ const udp = require('dgram');
 var buffer = require('buffer');
 
 class UdpListener {
-    constructor(udpPort, udpEnabled, bindingIP = '0.0.0.0') {
+    constructor(udpPort, udpEnabled, localIp) {
         this.udpPort = udpPort
         this.udpEnabled = udpEnabled,
-        this.bindingIP = bindingIP
+        this.localIp = localIp
     }
 
     start(processMessage) {
@@ -14,9 +14,12 @@ class UdpListener {
             var client = udp.createSocket('udp4');
             var udpPort = this.udpPort
             var bindingIP = this.bindingIP + "255"
+            var localIp = this.localIp
+
+            console.log("####################" + localIp)
 
             client.bind({
-                address: "0.0.0.0",
+                address: localIp,
                 port: this.udpPort,
                 exclusive: true
             });
@@ -35,14 +38,14 @@ class UdpListener {
                 
                 processMessage("UDP", msg, (data) => {
                     
-                    var buff = Buffer.from(JSON.stringify(data))
+                    /*var buff = Buffer.from(JSON.stringify(data))
                     
-                    client.send(buff, 0, buff.length, udpPort, "0.0.0.0", (err) => {
+                    client.send(buff, 0, buff.length, udpPort, localIp, (err) => {
                         
                         if(err) {
                             console.log("ERROR: " + err)
                         }
-                    })
+                    })*/
                 })
             });
 
