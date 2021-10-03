@@ -34,12 +34,19 @@ class TcpListener {
 
             this.app.get("/targets/:id", (req, res) => {
                 
-                this.targetRepository.targets.forEach(target => {
-    
-                    if(target.name === id) {
-                        res.json(target)
-                    }
-                });
+                var id = req.params.id
+                
+                if(id === 'sample') {
+                    res.json({ "id": "<enter the path that HID reports for the USB light", "name": "<Identifying Name>", "colour": "<Solo colour>", "group": "<Group Name>", "groupColour": "<Group Colour>"})
+                }
+                else {
+                    this.targetRepository.targets.forEach(target => {
+        
+                        if(target.name === id) {
+                            res.json(target)
+                        }
+                    });
+                }
             })
 
             this.app.post("/targets", (req, res) => {

@@ -80,3 +80,6 @@ bin
 
 #output binaries
 app-*
+
+# target configurations
+config/targets
