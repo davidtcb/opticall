@@ -27,6 +27,8 @@ class ServerConfig {
 
         var networkInterfaces = os.networkInterfaces();
 
+        console.log(networkInterfaces)
+
         for(var key in networkInterfaces) {
         
             var networkInterface = networkInterfaces[key]
