@@ -18,7 +18,7 @@ class UdpListener {
             client.bind({
                 address: "0.0.0.0",
                 port: this.udpPort,
-                exclusive: false
+                exclusive: true
             });
         
             client.on('listening', function() {
