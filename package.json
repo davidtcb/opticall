@@ -9,6 +9,7 @@
     "dependencies": {
         "body-parser": "^1.19.0",
         "boxen": "^5.1.2",
+        "broadcast-address": "^1.0.2",
         "chalk": "^4.1.2",
         "config": "^3.3.6",
         "express": "^4.17.1",

@@ -9,19 +9,20 @@ const TcpListener = require('./src/TcpListener.js');
 const UdpListener = require('./src/UdpListener.js');
 const OutputFormatter = require('./src/OutputFormatter.js');
 const TargetRepository = require('./src/TargetRepository.js');
-var Discovery = require('udp-discovery').Discovery;
+const TcpDiscovery = require('./src/TcpDiscovery.js');
 
 const args = yargs
     .usage("Usage: -u <udp> -t <tcp>")
     .option("u", {alias: "udpPort", describe: "UDP port to listen on", type: "number", demandOption: false, nArgs: 1})
     .option("t", {alias: "tcpPort", describe: "TCP port to listen on", type: "number", demandOption: false, nArgs: 1})
-    .option("b", {alias: "bindingIP", describe: "IP of the adapter to bind to", type: "string", demandOption: false})
     .option("d", {alias: "debug", describe: "Run in debug mode", type: "boolean", demandOption: false})
     .argv
 
 var { udpPort, tcpPort, bindingIP, debug } = args
 
-const serverConfig = new ServerConfig(udpPort, bindingIP, tcpPort)
+const serverConfig = new ServerConfig(udpPort, tcpPort)
+
+console.log(serverConfig)
 
 var targetRepository = new TargetRepository(serverConfig.targets)
 targetRepository.reload()
@@ -31,24 +32,9 @@ deviceRepository.locate(targetRepository)
 
 var outputFormatter = new OutputFormatter()
 
-var discover = new Discovery();
-var service = {
-    port: serverConfig.tcpPort,
-    proto: 'tcp',
-    addrFamily: 'IPv4',
-    localIp: serverConfig.localIp
-}
+var discovery = new TcpDiscovery(serverConfig.tcpPort, serverConfig.broadcastAddress);
 
-discover.on('MessageBus', (event, data) => {
-   // console.log('event:',event);
-  //  console.log('data:',data);
-});
-
-discover.on('available', function(name, data, reason) {
-    console.log(data);
-  });
-
-  discover.announce("Opticall", service)
+discovery.start()
 
 var processMessage = function(src, msg, callback) {
        
@@ -57,7 +43,7 @@ var processMessage = function(src, msg, callback) {
         return;
 
     } else if (msg.cmd === 'echo') {
-        console.log(msg.host)
+        console.log(msg.endpoint)
         return;
     }
 
@@ -120,7 +106,7 @@ var processMessage = function(src, msg, callback) {
 }
 
 var tcpServer = new TcpListener(serverConfig.tcpPort, serverConfig.tcpEnabled, targetRepository, deviceRepository);
-var udpServer = new UdpListener(serverConfig.udpPort, serverConfig.udpEnabled, serverConfig.localIp);
+var udpServer = new UdpListener(serverConfig.udpPort, serverConfig.udpEnabled, "0.0.0.0");
 
 tcpServer.start(processMessage)
 udpServer.start(processMessage)

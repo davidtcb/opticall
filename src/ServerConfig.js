@@ -1,14 +1,14 @@
 const config = require('config')
 const chalk = require('chalk');
 const os = require( 'os' );
+const broadcastAddress = require('broadcast-address');
 
 class ServerConfig {
-    constructor(udpPort, bindingIP, tcpPort) {
+    constructor(udpPort, tcpPort) {
         this.udpPort = udpPort ?? this._safeGetConfig('Network.UDP.port')
-        this.bindingIP = bindingIP ?? this._safeGetConfig('Network.UDP.bindingAddress')
+        this.discoveryPort = this._safeGetConfig('Network.UDP.discovery')
+        this.networkPrefix = this._safeGetConfig('Network.networkPrefix')
         this.tcpPort = tcpPort ?? this._safeGetConfig('Network.TCP.port')
-        this.tcpEnabled = this._safeGetConfig('Network.TCP.enabled')
-        this.udpEnabled = this._safeGetConfig('Network.UDP.enabled')
 
         //this.targetMap = new Map()
         this.targets = this._safeGetConfig("Targets")
@@ -32,8 +32,9 @@ class ServerConfig {
             var networkInterface = networkInterfaces[key]
 
             networkInterface.forEach(ni => {
-                if(ni.address.startsWith(this.bindingIP)) {
+                if(ni.address.startsWith(this.networkPrefix)) {
                     this.localIp = ni.address
+                    this.broadcastAddress =  broadcastAddress(key)
                 }
             })
         }
