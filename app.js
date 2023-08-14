@@ -7,7 +7,6 @@ import ServerConfig from './src/ServerConfig.js'
 import TcpListener from './src/TcpListener.js';
 import UdpListener from './src/UdpListener.js';
 import OutputFormatter from './src/OutputFormatter.js';
-import TargetRepository from './src/TargetRepository.js';
 import TcpDiscovery from './src/TcpDiscovery.js';
 
 const args = yargs(process.argv.slice())
