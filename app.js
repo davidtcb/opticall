@@ -18,7 +18,10 @@ const args = yargs(process.argv.slice())
 
 var { udpPort, tcpPort, bindingIP, debug } = args
 
-console.log(process.versions);
+console.log(udpPort);
+console.log(tcpPort);
+
+//console.log(process.versions);
 
 const serverConfig = new ServerConfig(udpPort, tcpPort)
 
