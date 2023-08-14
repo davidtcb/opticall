@@ -1,6 +1,6 @@
-const udp = require('dgram');
-var buffer = require('buffer');
-const { showCompletionScript } = require('yargs');
+import udp from 'dgram';
+//import buffer from 'buffer';
+//const { showCompletionScript } = require('yargs');
 
 class UdpListener {
     constructor(udpPort, bindingAddress) {
@@ -52,4 +52,5 @@ class UdpListener {
     }
 }
 
-module.exports = UdpListener
+export default UdpListener
+//module.exports = UdpListener

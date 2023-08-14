@@ -1,17 +1,15 @@
-const { constants } = require('luxafor-api')
-const yargs = require('yargs');
-const chalk = require('chalk');
-const { option, config } = require('yargs');
-const { Console } = require('console');
-const DeviceRepository = require('./src/DeviceRepository.js')
-const ServerConfig = require('./src/ServerConfig.js')
-const TcpListener = require('./src/TcpListener.js');
-const UdpListener = require('./src/UdpListener.js');
-const OutputFormatter = require('./src/OutputFormatter.js');
-const TargetRepository = require('./src/TargetRepository.js');
-const TcpDiscovery = require('./src/TcpDiscovery.js');
+//const { constants } = require('luxafor-api')
+import yargs from 'yargs';
+import chalk from 'chalk';
+import DeviceRepository from './src/DeviceRepository.js'
+import ServerConfig from './src/ServerConfig.js'
+import TcpListener from './src/TcpListener.js';
+import UdpListener from './src/UdpListener.js';
+import OutputFormatter from './src/OutputFormatter.js';
+import TargetRepository from './src/TargetRepository.js';
+import TcpDiscovery from './src/TcpDiscovery.js';
 
-const args = yargs
+const args = yargs(process.argv.slice())
     .usage("Usage: -u <udp> -t <tcp>")
     .option("u", {alias: "udpPort", describe: "UDP port to listen on", type: "number", demandOption: false, nArgs: 1})
     .option("t", {alias: "tcpPort", describe: "TCP port to listen on", type: "number", demandOption: false, nArgs: 1})
@@ -19,6 +17,8 @@ const args = yargs
     .argv
 
 var { udpPort, tcpPort, bindingIP, debug } = args
+
+console.log(process.versions);
 
 const serverConfig = new ServerConfig(udpPort, tcpPort)
 

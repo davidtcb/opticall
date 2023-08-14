@@ -1,4 +1,4 @@
-const os = require("os");
+import os from "os";
 
 class Device {
   constructor(hidDevice, config, path) {
@@ -90,4 +90,5 @@ class Device {
   }
 }
 
-module.exports = Device
+export default Device
+//module.exports = Device

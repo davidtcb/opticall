@@ -1,8 +1,8 @@
-const chalk = require('chalk');
-const boxen = require('boxen');
-const hex2rgb = require("hex-rgb");
-var rgb2hex = require('rgb2hex');
-const colors = require("color-name");
+import chalk from 'chalk';
+import boxen from 'boxen';
+import hex2rgb from 'hex-rgb';
+import rgb2hex from 'rgb2hex';
+import colors from "color-name";
 
 class OutputFormatter {
 
@@ -47,4 +47,5 @@ class OutputFormatter {
       }
 }
 
-module.exports = OutputFormatter
+export default OutputFormatter
+//module.exports = OutputFormatter

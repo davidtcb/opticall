@@ -1,5 +1,5 @@
-const express = require('express');
-const { device } = require('luxafor-api');
+import express from 'express';
+//const { device } = require('luxafor-api');
 
 class TcpListener {
     constructor(tcpPort, tcpEnabled, targetRepository, deviceRepository) {
@@ -82,4 +82,5 @@ class TcpListener {
     }    
 }
 
-module.exports = TcpListener
+export default TcpListener
+//module.exports = TcpListener

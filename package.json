@@ -2,6 +2,7 @@
     "name": "opticall",
     "version": "1.0.0",
     "description": "This is an app that allows the control of the Luxafor device over REST and UDP",
+    "type": "module",
     "main": "app.js",
     "bin": "app.js",
     "author": "davojc",
@@ -13,13 +14,25 @@
         "chalk": "^4.1.2",
         "config": "^3.3.6",
         "express": "^4.17.1",
-        "luxafor-api": "^3.0.0",
+        "hex-rgb": "^5.0.0",
+        "node-hid": "^2.1.2",
+        "pkg": "^5.8.1",
         "rgb2hex": "^0.2.5",
         "udp-discovery": "^2.0.2",
         "yargs": "^17.2.1"
     },
     "pkg": {
         "assets": "config/**/*",
-        "outputPath": "bin"
+        "outputPath": "bin",
+        "targets": [
+            "latest-linux-x64",
+            "latest-macos-x64",
+            "latest-win-x64"
+        ]
+    },
+    "scripts": {
+        "winbuild": "",
+        "macbuild": "",
+        "linuxbuild": ""
     }
 }

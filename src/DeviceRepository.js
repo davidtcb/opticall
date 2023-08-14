@@ -1,6 +1,6 @@
-const HID = require('node-hid');
-const Device = require('./Device.js')
-const chalk = require('chalk');
+import HID from 'node-hid';
+import Device from './Device.js';
+import chalk from 'chalk';
 
 class DeviceRepository {
     constructor() {
@@ -33,4 +33,5 @@ class DeviceRepository {
     }
 }
 
-module.exports = DeviceRepository
+export default DeviceRepository
+//module.exports = DeviceRepository

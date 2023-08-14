@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 class TargetRepository {
     constructor(targetDir) {
@@ -22,6 +22,7 @@ class TargetRepository {
             var obj = JSON.parse(fs.readFileSync(this.targetDir + '/' + file))
             this.targets.push(obj)
             this.targetMap.set(obj.id, obj)
+            console.log("Found device :" + obj.id + " in file " + file );
         });
     }
 
@@ -55,4 +56,5 @@ class TargetRepository {
 
 }
 
-module.exports = TargetRepository
+export default TargetRepository
+//module.exports = TargetRepository

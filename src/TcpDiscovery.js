@@ -1,5 +1,5 @@
-const udp = require('dgram');
-var buffer = require('buffer');
+import udp from 'dgram';
+//var buffer = require('buffer');
 
 class TcpDiscovery {
     constructor(udpPort, broadcastAddress) {
@@ -31,4 +31,5 @@ class TcpDiscovery {
     }
 }
 
-module.exports = TcpDiscovery
+export default TcpDiscovery
+//module.exports = TcpDiscovery

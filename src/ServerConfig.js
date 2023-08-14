@@ -1,7 +1,7 @@
-const config = require('config')
-const chalk = require('chalk');
-const os = require( 'os' );
-const broadcastAddress = require('broadcast-address');
+import config from 'config';
+import chalk from 'chalk';
+import os from  'os' ;
+import broadcastAddress from'broadcast-address';
 
 class ServerConfig {
     constructor(udpPort, tcpPort) {
@@ -52,4 +52,5 @@ class ServerConfig {
     }
 }
 
-module.exports = ServerConfig
+export default ServerConfig
+//module.exports = ServerConfig
