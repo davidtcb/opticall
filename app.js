@@ -1,6 +1,7 @@
 //const { constants } = require('luxafor-api')
 import yargs from 'yargs';
 import chalk from 'chalk';
+import fs from 'fs';
 import DeviceRepository from './src/DeviceRepository.js'
 import ServerConfig from './src/ServerConfig.js'
 import TcpListener from './src/TcpListener.js';
@@ -11,12 +12,35 @@ import TcpDiscovery from './src/TcpDiscovery.js';
 
 const args = yargs(process.argv.slice())
     .usage("Usage: -u <udp> -t <tcp>")
+    .default("m", 'signal')
+    .option("m", {alias: "mode", describe: "Which mode to run it in.", demandOption: true, nArgs: 1, choices: [ 'signal', 'config', 'discover']})
     .option("u", {alias: "udpPort", describe: "UDP port to listen on", type: "number", demandOption: false, nArgs: 1})
     .option("t", {alias: "tcpPort", describe: "TCP port to listen on", type: "number", demandOption: false, nArgs: 1})
     .option("d", {alias: "debug", describe: "Run in debug mode", type: "boolean", demandOption: false})
     .argv
 
-var { udpPort, tcpPort, bindingIP, debug } = args
+var { udpPort, tcpPort, mode, debug } = args
+
+switch(mode) {
+    case 'signal':
+
+    break;
+
+    case 'config':
+
+    break;
+
+    case 'discover':
+
+
+    break;
+
+    default:
+
+    console.log("Unrecognised mode.")
+
+    break;
+}
 
 console.log(udpPort);
 console.log(tcpPort);
@@ -27,17 +51,22 @@ const serverConfig = new ServerConfig(udpPort, tcpPort)
 
 console.log(serverConfig)
 
-var targetRepository = new TargetRepository(serverConfig.targets)
-targetRepository.reload()
+//var targetRepository = new TargetRepository()
+//targetRepository.reload()
 var deviceRepository = new DeviceRepository()
 
-deviceRepository.locate(targetRepository)
+deviceRepository.locate()
 
 var outputFormatter = new OutputFormatter()
 
 var discovery = new TcpDiscovery(serverConfig.tcpPort, serverConfig.broadcastAddress);
 
-discovery.start()
+
+console.log(serverConfig.Target);
+
+var targetConfig = JSON.parse(fs.readFileSync(serverConfig.target));
+
+//discovery.start()
 
 var processMessage = function(src, msg, callback) {
        
@@ -59,20 +88,21 @@ var processMessage = function(src, msg, callback) {
 
     deviceRepository.devices.forEach(device => {
     
+/*       
         if(!device.config) {
             console.log("No config exists for " + device.path)
             return;
         }
-
-        if(device.config.name === msg.target) {
-            var color = msg.colour ?? device.config.colour;
-        } else if (device.config.group === msg.target) {
-            var color = msg.colour ?? device.config.groupColour;
+*/
+        if(targetConfig.name === msg.target) {
+            var color = msg.colour ?? targetConfig.colour;
+        } else if (targetConfig.group === msg.target) {
+            var color = msg.colour ?? targetConfig.groupColour;
         } else {
             return;
         }
 
-        var resolvedColor = outputFormatter.output(device.config, msg, color, handler)
+        var resolvedColor = outputFormatter.output(targetConfig, msg, color, handler)
 
         var speed = msg.speed ?? handler.speed
         var repeat = msg.repeat ?? handler.repeat
@@ -108,7 +138,7 @@ var processMessage = function(src, msg, callback) {
     return true;
 }
 
-var tcpServer = new TcpListener(serverConfig.tcpPort, serverConfig.tcpEnabled, targetRepository, deviceRepository);
+var tcpServer = new TcpListener(serverConfig.tcpPort, serverConfig.tcpEnabled);
 var udpServer = new UdpListener(serverConfig.udpPort, serverConfig.udpEnabled, "0.0.0.0");
 
 tcpServer.start(processMessage)

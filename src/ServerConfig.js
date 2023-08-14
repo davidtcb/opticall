@@ -11,7 +11,7 @@ class ServerConfig {
         this.tcpPort = tcpPort ?? this._safeGetConfig('Network.TCP.port')
 
         //this.targetMap = new Map()
-        this.targets = this._safeGetConfig("Targets")
+        this.target = this._safeGetConfig("Target")
 
         //targets.forEach(t => {
         //    this.targetMap.set(t.id, t)
@@ -34,7 +34,7 @@ class ServerConfig {
             networkInterface.forEach(ni => {
                 if(ni.address.startsWith(this.networkPrefix)) {
                     this.localIp = ni.address
-                    this.broadcastAddress =  broadcastAddress(key)
+                    this.broadcastAddress = broadcastAddress(key)
                 }
             })
         }

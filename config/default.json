@@ -1,5 +1,5 @@
 {
-    "Targets": "./config/targets",
+    "Target": "./config/target.json",
     "Handlers": [
         {
             "cmd": "on"

@@ -7,7 +7,7 @@ import colors from "color-name";
 class OutputFormatter {
 
 
-    output(deviceConfig, msg, color, handler) {
+    output(config, msg, color, handler) {
 
         if(handler.consoleColour) {
             var color = handler.consoleColour
@@ -15,7 +15,7 @@ class OutputFormatter {
 
         var resolvedColor = this._resolveColor(color)
 
-        var outputText = "Group: " + deviceConfig.group + "\nTarget: " + deviceConfig.name
+        var outputText = "Group: " + config.group + "\nTarget: " + config.name
 
         if(msg.from) {
             outputText = outputText + "\nFrom: " + msg.from

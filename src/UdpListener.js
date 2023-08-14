@@ -1,6 +1,5 @@
 import udp from 'dgram';
 //import buffer from 'buffer';
-//const { showCompletionScript } = require('yargs');
 
 class UdpListener {
     constructor(udpPort, bindingAddress) {

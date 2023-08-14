@@ -2,11 +2,9 @@ import express from 'express';
 //const { device } = require('luxafor-api');
 
 class TcpListener {
-    constructor(tcpPort, tcpEnabled, targetRepository, deviceRepository) {
+    constructor(tcpPort, tcpEnabled) {
         this.tcpPort = tcpPort
         this.tcpEnabled = tcpEnabled
-        this.targetRepository = targetRepository
-        this.deviceRepository = deviceRepository
     }
 
     start(processMessage) {
@@ -25,6 +23,7 @@ class TcpListener {
                 }
             })
 
+            /*
             this.app.get("/devices", (req, res) => {
                 res.json(this.deviceRepository.paths)
             })
@@ -77,7 +76,7 @@ class TcpListener {
         
             this.app.listen(this.tcpPort, () => {
                 console.log("REST Server running on port 3000");
-            });
+            });*/
         }
     }    
 }
