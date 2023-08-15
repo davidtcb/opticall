@@ -1,26 +1,67 @@
 import express from 'express';
-//const { device } = require('luxafor-api');
+import fs from 'fs';
 
 class TcpListener {
-    constructor(tcpPort, tcpEnabled) {
+    constructor(tcpPort, commandHistory, targetConfig, targetConfigPath) {
         this.tcpPort = tcpPort
-        this.tcpEnabled = tcpEnabled
+        this.commandHistory = commandHistory
+        this.targetConfig = targetConfig
+        this.targetConfigPath = targetConfigPath
     }
 
     start(processMessage) {
-        if (this.tcpPort && this.tcpEnabled) {
+        if (this.tcpPort) {
 
+            console.log("Starting TCP server");
             this.app = express();
        
             this.app.use(express.json());
         
             this.app.post("/message", (req, res, next) => {
                     
+                console.log(req.body);
+                
                 if (processMessage("HTTP", req.body)) {
                     return res.sendStatus(200);
                 } else {
                     return res.sendStatus(400);
                 }
+            })
+
+            this.app.get("/history", (req, res) => {
+                res.json(this.commandHistory.commands);
+            })
+
+            this.app.get("/config", (req, res) => {
+                
+                var changed = false;
+
+                if(req.query.name) {
+                    changed = true;
+                    this.targetConfig.name = req.query.name
+                }
+
+                if(req.query.colour) {
+                    changed = true;
+                    this.targetConfig.colour = req.query.colour
+                }
+
+                if(req.query.group) {
+                    changed = true;
+                    this.targetConfig.group = req.query.group
+                }
+
+                if(req.query.groupColour) {
+                    changed = true;
+                    this.targetConfig.groupColour = req.query.groupColour
+                }
+
+                if(changed) {
+                    console.log("Writing out config");
+                    fs.writeFileSync(this.targetConfigPath, JSON.stringify(this.targetConfig));
+                }
+
+                res.json(this.targetConfig);
             })
 
             /*
@@ -73,10 +114,10 @@ class TcpListener {
                     res.sendStatus(500);
                 }
             })
-        
+        */
             this.app.listen(this.tcpPort, () => {
                 console.log("REST Server running on port 3000");
-            });*/
+            });
         }
     }    
 }

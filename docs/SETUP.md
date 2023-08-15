@@ -63,15 +63,6 @@ sudo apt install libudev-dev
 
 sudo apt install libusb-1.0-0 libusb-1.0-0-dev
 
-
-Install HID dependency
-
-sudo npm install node-hid --build-from-source
-
-
-
-
-
 Move to Usr/Local folder
 
 cd /usr/local
@@ -85,3 +76,54 @@ sudo git clone https://github.com/davidtcb/opticall.git
 Install dependencies
 
 sudo npm install
+
+
+#### Allow user to access USB device
+
+Vendor: 04d8
+ProdId: f372
+
+
+usb-devices
+
+sudo vi /etc/udev/rules.d/50-myusb.rules
+
+
+SUBSYSTEMS=="usb", GROUP="users", MODE="0666"
+
+
+
+## Start service
+
+### Generate startup script
+
+pm2 startup
+
+### Verify
+
+systemctl status pm2-signal.service
+
+
+### Start
+
+pm2 start /usr/local/opticall/app.js -n signal --cwd /usr/local/opticall
+
+
+### Save
+
+pm2 save
+
+
+### Restart
+
+sudo systemctl reboot
+
+
+### Verify started
+
+pm2 ls
+
+
+### Check logs
+
+

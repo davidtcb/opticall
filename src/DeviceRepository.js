@@ -2,6 +2,7 @@ import HID from 'node-hid';
 import Device from './Device.js';
 import chalk from 'chalk';
 
+
 class DeviceRepository {
     constructor() {
     }
@@ -25,3 +26,5 @@ class DeviceRepository {
 
 export default DeviceRepository
 //module.exports = DeviceRepository
+
+

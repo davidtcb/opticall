@@ -4,6 +4,7 @@ class Device {
   constructor(hidDevice) {
     this._hidDevice = hidDevice;
     this._hidDevice.pause();
+    
   }
 
   /**
