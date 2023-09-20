@@ -69,12 +69,51 @@ detect_version_id () {
   fi
 }
 
+curl_check ()
+{
+  echo "Checking for curl..."
+  if command -v curl > /dev/null; then
+    echo "Detected curl..."
+  else
+    echo "Installing curl..."
+    apt-get install -q -y curl
+    if [ "$?" -ne "0" ]; then
+      echo "Unable to install curl! Your base system has a problem; please check your default OS's package repositories because curl should work."
+      echo "Repository installation aborted."
+      exit 1
+    fi
+  fi
+}
+
+is_command() {
+    # Checks to see if the given command (passed as a string argument) exists on the system.
+    # The function returns 0 (success) if the command exists, and 1 if it doesn't.
+    local check_command="$1"
+
+    command -v "${check_command}" >/dev/null 2>&1
+}
+
+git_check () 
+{
+
+
+}
+
+
 main ()
 {
   detect_os
-  #curl_check
+  curl_check
+  is_command git
   #gpg_check
   detect_version_id
+
+  # Need to first run apt-get update
+  echo -n "Running apt-get update... "
+  apt-get update &> /dev/null
+  echo "done."
+
+
 }
 
 main
